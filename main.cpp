@@ -11,7 +11,8 @@ struct Node {
 void output(Node *);
 void addFront(Node *&head, float value);
 void addTail(Node *&head, float value);
-bool insertAfterPost(Node *&head, int position, float value);
+bool insertAfterPos(Node *&head, int position, float value);
+bool removeAt(Node *&head, int position); // remove @ given position
 void clearList(Node *&head);
 
 int main() {
@@ -25,29 +26,13 @@ int main() {
     output(head);
 
     // deleting a node
-    Node * current = head;
     cout << "Which node to delete? " << endl;
     output(head);
-    int entry;
+    int choice;
     cout << "Choice --> ";
-    cin >> entry;
-
-    // traverse that many times and delete that node
-    current = head;
-    Node *prev = head;
-    for (int i = 0; i < (entry-1); i++)
-        if (i == 0)
-            current = current->next;
-        else {
-            current = current->next;
-            prev = prev->next;
-        }
-    // at this point, delete current and reroute pointers
-    if (current) {  // checks for current to be valid before deleting the node
-        prev->next = current->next;
-        delete current;
-        current = nullptr;
-    }
+    cin >> choice;
+    if (!removeAt(head, choice)) // returns boolean
+        cout << "Could not delete node " << choice << ".\n";
     output(head);
 
     // insert a node
@@ -116,6 +101,17 @@ bool insertAfterPos(Node *&head, int position, float value) {
     n->next = cur->next;
     cur->next = n;
     return true;
+}
+
+bool removeAt(Node *&head, int position) {
+    if (!head || position <= 0)
+        return false;
+    if (position == 1) {
+        Node *tmp = head;
+        head = head->next;
+        delete tmp;
+        return true;
+    }
 }
 
 void clearList(Node *&head){
