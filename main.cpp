@@ -8,7 +8,7 @@ struct Node {
     Node *next;
 };
 
-void output(Node *);
+void output(Node *hd);
 void addFront(Node *&head, float value);
 void addTail(Node *&head, float value);
 bool insertAfterPos(Node *&head, int position, float value);
@@ -52,13 +52,13 @@ int main() {
     return 0;
 }
 
-void output(Node * hd) {
+void output(Node *hd) {
     if (!hd) {
         cout << "Empty list.\n";
         return;
     }
     int count = 1;
-    Node * current = hd;
+    Node *current = hd;
     while (current) {
         cout << "[" << count++ << "] " << current->value << endl;
         current = current->next;
