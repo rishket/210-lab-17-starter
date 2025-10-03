@@ -112,7 +112,7 @@ bool removeAt(Node *&head, int position) {
         return true;
     }
     Node *prev = head;
-    for(int i = 0, i < position-1 && prev; ++i){
+    for(int i = 0; i < position-1 && prev; ++i){
         prev = prev->next;
     }
     if(!prev || !prev->next){
