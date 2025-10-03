@@ -17,7 +17,6 @@ void clearList(Node *&head);
 
 int main() {
     Node *head = nullptr;
-
     // create a linked list of size SIZE with random numbers 0-99
     for (int i = 0; i < SIZE; i++) {
         int val = rand() % 100;
@@ -112,6 +111,17 @@ bool removeAt(Node *&head, int position) {
         delete tmp;
         return true;
     }
+    Node *prev = head;
+    for(int i = 0, i < position-1 && prev; ++i){
+        prev = prev->next;
+    }
+    if(!prev || !prev->next){
+        return false;
+    }
+    Node *toDelete = prev->next;
+    prev->next = toDelete->next;
+    delete toDelete;
+    return true;
 }
 
 void clearList(Node *&head){
