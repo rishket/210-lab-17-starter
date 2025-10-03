@@ -11,6 +11,7 @@ struct Node {
 void output(Node *);
 void addFront(Node *&head, float value);
 void addTail(Node *&head, float value);
+void clearList(Node *&head);
 
 int main() {
     Node *head = nullptr;
@@ -77,13 +78,7 @@ int main() {
     output(head);
 
     // deleting the linked list
-    current = head;
-    while (current) {
-        head = current->next;
-        delete current;
-        current = head;
-    }
-    head = nullptr;
+    clearList(head);
     output(head);
 
     return 0;
@@ -111,16 +106,26 @@ void addFront(Node *&head, float value) {
 }
 
 void addTail(Node *&head, float value) {
-    Node n = new Node;
+    Node *n = new Node;
     n->value = value;
     n->next = nullptr;
-    if (head) {
+    if (!head) {
         head = n;
         return;
     }
-    Node cur = head;
+    Node *cur = head;
     while (cur->next){
         cur = cur->next;
     }
     cur->next = n;
+}
+
+void clearList(Node *&head){
+    Node *cur = head;
+    while (cur) {
+        Node *next = cur->next;
+        delete cur;
+        cur = next;
+    }
+    head = nullptr;
 }
